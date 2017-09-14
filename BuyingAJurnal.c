@@ -13,138 +13,152 @@ Add :
 2. 100 api call     $5
 ************************************** */
 
-int main (void)
+struct target { ///Structuring variable
+     int angka, checker;
+ };
+
+ typedef struct target myStruct; ///Connect structured variable with new data type
+
+myStruct input_validator () ///Create a function with our new data type in order to connect with our structure variable
 {
+    myStruct con;
+  char buf[BUFSIZ];
+  char *p;
+  long int i;
+  int v = 0;
 
-//initializer_list *******************
-char buf[BUFSIZ];
-char *p;
-long int mainPack = 0, addPack1 = 0, addPack1a = 0, addPack2 = 0, addPack2a = 0;
-int counter = 0, counter2 = 0, orderMainPack, orderAddPack1, orderAddPack2, k1 = 10, k2 = 5;
-//************************************
+  if (fgets(buf, sizeof(buf), stdin) != NULL)
+  {
+    i = strtol(buf, &p, 10);
 
-//algo
+    /*
+     *  If the first character of the buffer is \n, the user
+     *  pressed [Enter] with entering any text at all, which
+     *  is therefore invalid.
+     *
+     *  The pointer p has been updated by strtol() to point to
+     *  the first invalid character after the number.
+     *  If this character is \0 it means we reached the end of
+     *    the array successfully, so we received a good number.
+     *  If this character is \n it also means we reached the
+     *    end of the input successfully.
+     *  If this character is anything else, it means there was
+     *    some additional characters entered after the number,
+     *    will consider to be invalid.
+     */
 
+    if (buf[0] != '\n' && (*p == '\n' || *p == '\0')) {
+        v = 1;
+    } else {
+        v = 2;
+    }
+  }
+  con.angka = i; ///Number that user has been input.
+  con.checker = v;///Result after user input has been check by system.
+  return(con); ///Returning a structure variable from a function. So, we can get 2 returned value from input_validator
+}
+
+void main(void)
+{
+    int counter = 0, innerCounter = 0, mainPack = 0, additional1 = 0, additional2 = 0, total = 0;
+    myStruct result; ///Creating a object of
+
+    ///Main package
     printf("Package                Price        Description\n1.Starter Package      $150         1 User");
     printf("\n2.Pro Package          $200         2 User\n3.Enterprise Package   $250         5 User");
 
-    ///Main package section
-    while (counter < 1)
-    {
-        printf("\nWhich package number do you want to? : ");
-        if (fgets(buf, sizeof(buf), stdin) != NULL) {
-            mainPack = strtol(buf, &p, 10);
+    while (counter < 1){
+        printf("\n\nWhich package number do you want to? : ");
+        result = input_validator (); ///Calling input_validator function to check user input
 
-            if (buf[0] != '\n' && (*p == '\n' || *p == '\0')) {
-                if (mainPack == 1){
-                    printf("\nYou Choose: Starter Package");
-                    mainPack = 150;
-                    counter = 1;
-                }
-                else if (mainPack == 2) {
-                    printf("\nYou Choose: Pro Package");
-                    mainPack = 200;
-                    counter = 1;
-                }
-                else if (mainPack == 3 ){
-                    printf("\nYou Choose: Enterprise Package");
-                    mainPack = 250;
-                    counter = 1;
-                }
-                else {
-                    printf ("\nPlease choose package 1, 2, or 3");
-                }
-            }
-            else {
-                printf ("\nInvalid input entered");
-            }
-        }
-    }
-
-    ///Additional User section
-    while (counter < 2)
-    {
-        printf("\n\nDo you want to add additional user? (Enter '1' if you want, otherwise '0'): ");
-        if (fgets(buf, sizeof(buf), stdin) != NULL) {
-            addPack1 = strtol(buf, &p, 10);
-
-            if (buf[0] != '\n' && (*p == '\n' || *p == '\0')) {
-                if (addPack1 == 1){
-                    while (counter2 < 1) {
-                        printf("\nAdditional Package 1 -- Add 1 user = $10\nHow many user do you want to add? : ");
-                        if (fgets(buf, sizeof(buf), stdin) != NULL) {
-                                addPack1a = strtol(buf, &p, 10);
-
-                                if (buf[0] != '\n' && (*p == '\n' || *p == '\0')) {
-                                    counter2 = 1;
-                                    counter = 2;
-                                } else {
-                                    printf ("\nInvalid input entered");
-                                }
-                        } else {
-                                printf ("\nInvalid input entered");
-                        }
-                    }
-                } else if (addPack1 == 0) {
-                    counter2 = 1;
-                    counter = 2;
-                } else {
-                    printf ("Invalid input entered");
-                }
+        if (result.checker == 1){
+            if (result.angka == 1) {
+                printf("\nYou Choose: Starter Package");
+                mainPack = 150;
+                counter = 1;
+            } else if (result.angka == 2){
+                printf("\nYou Choose: Pro Package");
+                mainPack = 200;
+                counter = 1;
+            } else if (result.angka == 3){
+                printf("\nYou Choose: Enterprise Package");
+                mainPack = 250;
+                counter = 1;
             } else {
-                printf ("Invalid input entered");
+                printf ("\nPlease choose package 1, 2, or 3");
             }
         } else {
-            printf ("Invalid input entered");
+            printf ("\nInvalid input entered");
         }
-    }
+    } ///counter = 1
 
-    ///Additional API section
-    while (counter < 3)
-    {
-        printf("\n\nDo you want to add additional API Call? (Enter '1' if you want, otherwise '0'): ");
-        if (fgets(buf, sizeof(buf), stdin) != NULL) {
-            addPack2 = strtol(buf, &p, 10);
+    ///Additional User Selection
+    while (counter < 2){
+        printf("\n\nDo you want to add additional user? (Enter '1' if you want, otherwise '0'): ");
+        result = input_validator (); ///Calling input_validator function to check user input
 
-            if (buf[0] != '\n' && (*p == '\n' || *p == '\0')) {
-                if (addPack2 == 1){
-                    while (counter2 < 2) {
-                        printf("\nAdditional Package 2 -- 100 API call = $5\nHow many API Call do you want to add? : ");
-                        if (fgets(buf, sizeof(buf), stdin) != NULL) {
-                                addPack2a = strtol(buf, &p, 10);
-                                if (buf[0] != '\n' && (*p == '\n' || *p == '\0')) {
-                                    if (addPack2a >= 100 && addPack2a == 0) {
-                                        counter2 = 2;
-                                        counter = 3;
-                                    } else {
-                                    printf("\n\nMinimum order is 100 API Call and multiple of it.");
-                                    }
-                                } else {
-                                printf ("\nInvalid input entered");
-                                }
-                        } else {
-                            printf ("\nInvalid input entered");
-                        }
+        if (result.checker == 1) { ///if user enter an appropriate input, then :
+            if (result.angka == 1){ ///if user wants to add additional user, then :
+                while (innerCounter < 1) {
+                    printf("\nAdditional Package 1 -- Add 1 user = $10\nHow many user do you want to add? : ");
+                    result = input_validator (); ///Calling input_validator function to check user input
+
+                    if (result.checker == 1) { ///if user enter an appropriate input, then :
+                        additional1 = result.angka;
+                        innerCounter = 1;
+                        counter = 2;
+                    } else { ///if user enter an INappropriate input, then :
+                        printf ("\nInvalid input entered");
                     }
-                } else if (addPack1 == 0) {
-                    counter2 = 2;
-                    counter = 3;
-                } else {
-                    printf ("Invalid input entered");
                 }
-                } else {
-                    printf ("Invalid input entered");
-                }
-            } else {
-                printf ("Invalid input entered");
+            } else if (result.angka == 0) { ///if user dont want to add additional user
+                innerCounter = 1;
+                counter = 2;
             }
+        } else { ///if user enter an INappropriate input, then :
+            printf ("\nInvalid input entered");
         }
+    } ///innerCounter = 1, counter = 2
 
-    orderMainPack = (int) mainPack;
-    orderAddPack1 = (int) addPack1a;
-    orderAddPack2 = (int) addPack2a;
-    printf("\n\norderAddPack1 : $%d \n\n", orderAddPack1);
-    printf("\n\nYour total order is : $%ld \n\n", (orderMainPack) + (orderAddPack1*k1) + (orderAddPack2*k2));
-    printf("\n\nmPack: %d\naddPack1a: %d\naddPack2a: %d\n\n", orderMainPack*k1, orderAddPack1, orderAddPack2);
+
+    ///Additional API Call
+    while (counter < 3){
+        printf("\n\nDo you want to add additional API Call? (Enter '1' if you want, otherwise '0'): ");
+        result = input_validator (); ///Calling input_validator function to check user input
+
+        if (result.checker == 1) { ///if user enter an appropriate input, then :
+            if (result.angka == 1){ ///if user wants to add additional api call, then :
+                while (innerCounter < 2) {
+                    printf("\nAdditional Package 2 -- 100 API call = $5\nHow many API Call do you want to add? : ");
+                    result = input_validator (); ///Calling input_validator function to check user input
+
+                    if (result.checker == 1) { ///if user enter an appropriate input, then :
+                        if (result.angka >= 100 && result.angka%100 == 0) { ///if user demand api call that greater or equal to 100 AND is a multiple of 100, then :
+                            additional2 = result.angka;
+                            innerCounter = 2;
+                            counter = 3;
+                        } else { ///if user demand api call that LESSER than 100 OR is NOT a multiple of 100, then :
+                            printf("\n\nMinimum order is 100 API Call and multiple of it.");
+                        }
+                    } else { ///if user enter an INappropriate input, then :
+                        printf ("\nInvalid input entered");
+                    }
+                }
+            } else if (result.angka == 0) { ///if user dont want to add additional API Call
+                innerCounter = 2;
+                counter = 3;
+            }
+        } else { ///if user enter an INappropriate input, then :
+            printf ("\nInvalid input entered");
+        }
+    } ///innerCounter = 2, counter = 3
+
+    additional1 *= 10; ///How many additional user is multiply by $10
+    additional2 *= 5; ///How many additional API Call is multiply by $5
+    total = mainPack + additional1 + additional2; ///Sum all the variable (Main Package + Additional 1 + Additional 2)
+    printf("\n\Main Package: $%d\nAdditional User(s) : $%d\nadditional API Call : $%d", mainPack, additional1, additional2);
+    printf("\nTotal cost: $%d\n\n", total);
+
+
     system ("PAUSE");
-    }
+}
