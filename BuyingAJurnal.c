@@ -13,13 +13,13 @@ Add :
 2. 100 api call     $5
 ************************************** */
 
-struct target { ///Structuring variable
+ struct target { ///Structuring variable
      int angka, checker;
  };
 
  typedef struct target myStruct; ///Connect structured variable our data type
 
-myStruct input_validator () ///Create a function with our new data type in order to connect with our structure variable
+myStruct input_validator () ///Create a function with our data type to connect with our structure variable
 {
     myStruct con;
   char buf[BUFSIZ];
@@ -67,23 +67,23 @@ void main(void)
     printf("Package                Price        Description\n1.Starter Package      $150         1 User");
     printf("\n2.Pro Package          $200         2 User\n3.Enterprise Package   $250         5 User");
 
-    while (counter < 1){
+    while (counter < 1){ ///Using While..Do in order to get an appropriate input and right available option. Loop will end when user enter an appropriate input and choose the right available option
         printf("\n\nWhich package number do you want to? : ");
-        result = input_validator (); ///Calling input_validator function to check user input
+        result = input_validator (); ///Call input_validator function to check user input
 
         if (result.checker == 1){
             if (result.angka == 1) {
                 printf("\nYou Choose: Starter Package");
                 mainPack = 150;
-                counter = 1;
+                counter = 1; ///key to stop the loop
             } else if (result.angka == 2){
                 printf("\nYou Choose: Pro Package");
                 mainPack = 200;
-                counter = 1;
+                counter = 1; ///key to stop the loop
             } else if (result.angka == 3){
                 printf("\nYou Choose: Enterprise Package");
                 mainPack = 250;
-                counter = 1;
+                counter = 1; ///key to stop the loop
             } else {
                 printf ("\nPlease choose package 1, 2, or 3");
             }
@@ -93,27 +93,27 @@ void main(void)
     } ///counter = 1
 
     ///Additional User Selection
-    while (counter < 2){
+    while (counter < 2){ ///Using While..Do in order to get an appropriate input and right available option. Loop will end when user enter an appropriate input and choose the right available option
         printf("\n\nDo you want to add additional user? (Enter '1' if you want, otherwise '0'): ");
-        result = input_validator (); ///Calling input_validator function to check user input
+        result = input_validator (); ///Call input_validator function to check user input
 
         if (result.checker == 1) { ///if user enter an appropriate input, then :
             if (result.angka == 1){ ///if user wants to add additional user, then :
-                while (innerCounter < 1) {
+                while (innerCounter < 1) { ///Using While..Do in order to get an appropriate input and right available option. Loop will end when user enter an appropriate input and choose the right available option
                     printf("\nAdditional Package 1 -- Add 1 user = $10\nHow many user do you want to add? : ");
-                    result = input_validator (); ///Calling input_validator function to check user input
+                    result = input_validator (); ///Call input_validator function to check user input
 
                     if (result.checker == 1) { ///if user enter an appropriate input, then :
                         additional1 = result.angka;
-                        innerCounter = 1;
-                        counter = 2;
+                        innerCounter = 1; ///key to stop the loop
+                        counter = 2; ///key to stop the loop
                     } else { ///if user enter an INappropriate input, then :
                         printf ("\nInvalid input entered");
                     }
                 }
             } else if (result.angka == 0) { ///if user dont want to add additional user
-                innerCounter = 1;
-                counter = 2;
+                innerCounter = 1; ///key to stop the loop
+                counter = 2; ///key to stop the loop
             }
         } else { ///if user enter an INappropriate input, then :
             printf ("\nInvalid input entered");
@@ -122,21 +122,21 @@ void main(void)
 
 
     ///Additional API Call
-    while (counter < 3){
+    while (counter < 3){ ///Using While..Do in order to get an appropriate input and right available option. Loop will end when user enter an appropriate input and choose the right available option
         printf("\n\nDo you want to add additional API Call? (Enter '1' if you want, otherwise '0'): ");
-        result = input_validator (); ///Calling input_validator function to check user input
+        result = input_validator (); ///Call input_validator function to check user input
 
         if (result.checker == 1) { ///if user enter an appropriate input, then :
             if (result.angka == 1){ ///if user wants to add additional api call, then :
-                while (innerCounter < 2) {
+                while (innerCounter < 2) {///Using While..Do in order to get an appropriate input and right available option. Loop will end when user enter an appropriate input and choose the right available option
                     printf("\nAdditional Package 2 -- 100 API call = $5\nHow many API Call do you want to add? : ");
-                    result = input_validator (); ///Calling input_validator function to check user input
+                    result = input_validator (); ///Call input_validator function to check user input
 
                     if (result.checker == 1) { ///if user enter an appropriate input, then :
                         if (result.angka >= 100 && result.angka%100 == 0) { ///if user demand api call that greater or equal to 100 AND is a multiple of 100, then :
                             additional2 = result.angka;
-                            innerCounter = 2;
-                            counter = 3;
+                            innerCounter = 2; ///key to stop the loop
+                            counter = 3; ///key to stop the loop
                         } else { ///if user demand api call that LESSER than 100 OR is NOT a multiple of 100, then :
                             printf("\n\nMinimum order is 100 API Call and multiple of it.");
                         }
@@ -145,8 +145,8 @@ void main(void)
                     }
                 }
             } else if (result.angka == 0) { ///if user dont want to add additional API Call
-                innerCounter = 2;
-                counter = 3;
+                innerCounter = 2; ///key to stop the loop
+                counter = 3; ///key to stop the loop
             }
         } else { ///if user enter an INappropriate input, then :
             printf ("\nInvalid input entered");
@@ -156,8 +156,8 @@ void main(void)
     additional1 *= 10; ///How many additional user is multiply by $10
     additional2 *= 5; ///How many additional API Call is multiply by $5
     total = mainPack + additional1 + additional2; ///Sum all the variable (Main Package + Additional 1 + Additional 2)
-    printf("\n\nMain Package: $%d\nAdditional User(s) : $%d\nadditional API Call : $%d", mainPack, additional1, additional2);
-    printf("\nTotal cost: $%d\n\n", total);
+    printf("\n\nMain Package: %d\nAdditional User(s) : %d\nadditional API Call : %d", mainPack, additional1, additional2);
+    printf("\nTotal cost: %d\n\n", total);
 
 
     system ("PAUSE");
