@@ -17,7 +17,7 @@ struct target { ///Structuring variable
      int angka, checker;
  };
 
- typedef struct target myStruct; ///Connect structured variable with new data type
+ typedef struct target myStruct; ///Connect structured variable our data type
 
 myStruct input_validator () ///Create a function with our new data type in order to connect with our structure variable
 {
