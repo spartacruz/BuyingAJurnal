@@ -156,7 +156,7 @@ void main(void)
     additional1 *= 10; ///How many additional user is multiply by $10
     additional2 *= 5; ///How many additional API Call is multiply by $5
     total = mainPack + additional1 + additional2; ///Sum all the variable (Main Package + Additional 1 + Additional 2)
-    printf("\n\Main Package: $%d\nAdditional User(s) : $%d\nadditional API Call : $%d", mainPack, additional1, additional2);
+    printf("\n\nMain Package: $%d\nAdditional User(s) : $%d\nadditional API Call : $%d", mainPack, additional1, additional2);
     printf("\nTotal cost: $%d\n\n", total);
 
 
